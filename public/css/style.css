@@ -1,0 +1,52 @@
+.loginBox{
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content:center;
+    align-items:center;
+}
+.loginBox form{
+    height: 400px;
+    width: 50%;
+}
+.Dashboard{
+    height: 100vh;
+    width: 100%;
+}
+.Dashboard header{
+    height: 50px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+}
+.Dashboard header .h1{
+    font-size: 18px;
+}
+.Dashboard .createBox{
+    margin-top: 10px;
+    display: flex;
+    justify-content:space-between ;
+}
+.productCreate{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.productCreate form{
+    height: max-content;
+    width: 60%;
+    background-color: whitesmoke;
+    padding: 10px;
+    border-radius: 5px;
+}
+.form-group{
+    margin-bottom: 10px;
+}
+/* .error{
+    border: 1px solid red;
+} */
