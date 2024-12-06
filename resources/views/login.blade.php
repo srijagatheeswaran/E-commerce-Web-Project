@@ -6,8 +6,8 @@
     <div class="mt-5">
          -->
 
-        <!-- <div class="alert alert-success">{{session('success')}}</div> -->
-    <!-- </div>
+<!-- <div class="alert alert-success">{{session('success')}}</div> -->
+<!-- </div>
 
 </div> -->
 <div class="loginBox">
@@ -34,7 +34,7 @@
         <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-block mb-4"
             id="loginbtn">Sign
             in</button>
-            <div id="loginAlert"></div>
+        <div id="loginAlert"></div>
 
     </form>
 </div>
@@ -61,55 +61,89 @@
                 }
             }
         }
-        function showMessage(sty,message){
+        function showMessage(sty, message) {
             $('#loginAlert').html(`<p class=${sty} id='error'><b>${message}</b></p>`)
 
         }
         $('.form').submit(function (e) {
+            e.preventDefault();
             $('#error').remove()
             $('#emailerr').hide()
             $('#passworderr').hide()
             $(`.form input[name='${name}']`).removeClass('error');
-            e.preventDefault();
-            // console.log('hia')
-            var btn = $('#loginbtn');
-            btn.prop('disabled', true);
-            btn.text('Please wait...');
-            $.ajax({
-                url: '{{route('login.post')}}',
-                method: 'post',
-                data: $(this).serialize(),
-                dataType: 'json',
-                success: function (res) {
-                    console.log(res)
-                    btn.prop('disabled', false);
-                    btn.text('Sign in');
-                    if (res.status == 400) {
-                        console.log(res.message, res.message.email)
-                        if (res.message.email && res.message.password) {
-                            showError('email', res.message.email)
-                            showError('password', res.message.password)
-                        }
-                        else {
-                            if (res.message.email) {
+
+            let errors = true
+            let email = $('#email').val().trim()
+            let emailPattern = /^\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i
+            // console.log(email)
+            if (email == "") {
+                // console.log('mo')
+                showError('email', 'Email is required!')
+                errors = false
+            } else {
+                if (!emailPattern.test(email)) {
+                    //  alert('not a valid e-mail address');
+                    showError('email', 'Not a valid e-mail address!')
+                    errors = false
+                }
+
+            }
+            let password = $('#password').val().trim();
+            let passwordPatten = /^.{6,}$/;
+
+            if (password == "") {
+                // console.log('mo')
+                showError('password', 'password is required!')
+                errors = false
+            } else {
+                if (!passwordPatten.test(password)) {
+                    //  alert('not a valid e-mail address');
+                    showError('password', 'Minimum 6 characters!')
+                    errors = false
+                }
+            }
+
+            if (errors) {
+                console.log('hia')
+                var btn = $('#loginbtn');
+                btn.prop('disabled', true);
+                btn.text('Please wait...');
+                $.ajax({
+                    url: '{{route('login.post')}}',
+                    method: 'post',
+                    data: $(this).serialize(),
+                    dataType: 'json',
+                    success: function (res) {
+                        console.log(res)
+                        btn.prop('disabled', false);
+                        btn.text('Sign in');
+                        if (res.status == 400) {
+                            console.log(res.message, res.message.email)
+                            if (res.message.email && res.message.password) {
                                 showError('email', res.message.email)
-                            } else if (res.message.password) {
                                 showError('password', res.message.password)
                             }
+                            else {
+                                if (res.message.email) {
+                                    showError('email', res.message.email)
+                                } else if (res.message.password) {
+                                    showError('password', res.message.password)
+                                }
+                            }
                         }
-                    }
-                    else if (res.status == 401) {
-                        console.log(res.message)
-                        showMessage('text-danger', res.message)
-                    }
-                    else {
-                        if (res.status == 200 && res.message == "success") {
-                            window.location = '{{route('home')}}'
+                        else if (res.status == 401) {
+                            console.log(res.message)
+                            showMessage('text-danger', res.message)
                         }
+                        else {
+                            if (res.status == 200 && res.message == "success") {
+                                window.location = '{{route('home')}}'
+                            }
 
+                        }
                     }
-                }
-            })
+                })
+            }
         })
     })
 

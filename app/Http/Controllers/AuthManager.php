@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 // use Illuminate\support\facades\Auth;
 // use Auth;
+use App\Models\products;
 use Hash;
 use Illuminate\Http\Request;
 use App\Models\admins;
@@ -30,7 +31,9 @@ class AuthManager extends Controller
     {
         if($request->session()->has('loggedInUser'))
         {
-            return view('welcome');
+            $productDetails =products::get();
+            // return $productDetails;
+            return view('welcome',compact('productDetails'));
         }
         return  redirect('/login');
     }

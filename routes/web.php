@@ -20,6 +20,14 @@ use App\Http\Middleware\Logincheck;
     Route::get("/productCreate",[ProductControler::class,"productCreate"])->name("productCreate");
 
     Route::post("/createProduct",[ProductControler::class,"createProduct"])->name("product.create");
+    
+    Route::get("/product/{id}/edit", [ProductControler::class,"productEdit"]);
+
+    Route::get("/product/{id}/delete", [ProductControler::class,"productDelete"]);
+
+    Route::post("/productUpdate/{id}", [ProductControler::class,"productUpdate"])->name("product.update");
+
+    Route::get("/orders", [ProductControler::class,'showOrders'])->name('show.orders');
 // });
   
 
