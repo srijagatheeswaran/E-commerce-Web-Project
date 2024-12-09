@@ -9,7 +9,7 @@
     <div class="createBox">
         <a href="{{route('productCreate')}}" class="btn btn-success mx-3">Create Products</a>
         <a class="btn btn-success" href="{{route('show.orders')}}">Orders</a>
-        <a href="{{route('register')}}" class="btn btn-success mx-3">Create Admin</a>
+        <a href="{{route('adminregister')}}" class="btn btn-success mx-3">Create Admin</a>
     </div>
     @if(session('status'))
         <div class="alert alert-success">

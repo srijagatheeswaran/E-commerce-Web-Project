@@ -9,22 +9,22 @@ use Illuminate\Http\Request;
 use App\Models\admins;
 use Validator;
 
-class AuthManager extends Controller
+class adminController extends Controller
 {
     function index(Request $request){
         if($request->session()->has('loggedInUser'))
         {
-            return  redirect('/home');
+            return  redirect('/adminhome');
         }
-        return view('login');
+        return view('admin.adminLogin');
     }
     function login(Request $request)
     {
         if($request->session()->has('loggedInUser'))
         {
-            return  redirect('/home');
+            return  redirect('/adminhome');
         }
-        return view('login');
+        return view('admin.adminLogin');
 
     }
     function home(Request $request)
@@ -33,23 +33,23 @@ class AuthManager extends Controller
         {
             $productDetails =products::get();
             // return $productDetails;
-            return view('welcome',compact('productDetails'));
+            return view('admin.welcome',compact('productDetails'));
         }
-        return  redirect('/login');
+        return  redirect('/adminlogin');
     }
     function register(Request $request)
     {
         if($request->session()->has('loggedInUser'))
         {
-            return view('register');
+            return view('admin.adminregister');
         }
-        return redirect('/login');
+        return redirect('/adminlogin');
     }
     function logout(){
 
         if(session()->has('loggedInUser')){
             session()->pull('loggedInUser');
-            return redirect('/login');
+            return redirect('/adminlogin');
         }
     }
 

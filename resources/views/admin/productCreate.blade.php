@@ -3,6 +3,7 @@
 @section('content')
 
 <div class="productCreate">
+<a class="btn btn-primary backbtn" href="{{url('/adminhome')}}"> <- Back</a>
     <form class="form-horizontal">
         @csrf
         <fieldset>
@@ -46,6 +47,15 @@
                         class="form-control input-md" type="text">
                 </div>
                 <span class="text-danger" id="quantityErr"></span>
+            </div>
+
+            <div class="form-group">
+                <label class=" control-label" for="price">PRICE</label>
+                <div class="">
+                    <input id="price" name="price" placeholder="PRICE"
+                        class="form-control input-md" type="text">
+                </div>
+                <span class="text-danger" id="priceErr"></span>
             </div>
 
             <!-- Textarea -->
@@ -103,6 +113,10 @@
                 $('#imageErr').text(message)
                 $('#imageErr').show()
             }
+            if (name == 'price') {
+                $('#priceErr').text(message)
+                $('#priceErr').show()
+            }
         }
 
         // function showMessage(sty,message){
@@ -118,6 +132,8 @@
             $('#quantityErr').hide()
             $('#descriptionErr').hide()
             $('#imageErr').hide()
+            $('#priceErr').hide()
+
             let noErrors = true;
             let product_namePattern = /^[A-Za-z\s]{2,}$/
             let product_name = $('#product_name').val().trim();
@@ -151,6 +167,31 @@
                     showError('quantity', "Invalid number")
                     noErrors = false
                     // console.log("Valid number");
+                }
+                else{
+                    if(quantity<=0){
+                        showError('quantity', "quantity must greater than 0")
+                        noErrors = false
+                    }
+                }
+            }
+
+            let price =$('#price').val().trim();
+            let pricePatten = /^\d+$/
+
+            if (price == "") {
+                // console.log('quantity')
+                showError('price', 'The price field is required.')
+                noErrors = false
+            } else {
+                if (!pricePatten.test(price)) {
+                    showError('price', "Invalid number")
+                    noErrors = false
+                }else{
+                    if(price<=10){
+                        showError('price', "Price must greater than 10")
+                        noErrors = false
+                    }
                 }
             }
 
@@ -241,7 +282,7 @@
                         }
                         else {
                             if (res.status == 200 && res.message == "Product Created successfully") {
-                                window.location = '{{route('home')}}'
+                                window.location = '{{route('adminhome')}}'
                                 // showMessage('text-success',res.message )
                                 // $('#product_name').val("")
 

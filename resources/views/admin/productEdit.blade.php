@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="productCreate">
-    <a class="btn btn-primary backbtn" href="{{url('/home')}}"> <- Back</a>
+    <a class="btn btn-primary backbtn" href="{{url('/adminhome')}}"> <- Back</a>
             <form class="form-horizontal">
                 @csrf
                 <fieldset>
@@ -53,6 +53,15 @@
                         <span class="text-danger" id="quantityErr"></span>
                     </div>
 
+                    <div class="form-group">
+                        <label class=" control-label" for="price">PRICE</label>
+                        <div class="">
+                            <input id="price" name="price" placeholder="PRICE" class="form-control input-md"
+                                type="text" value="{{$product->price}}">
+                        </div>
+                        <span class="text-danger" id="priceErr"></span>
+                    </div>
+
                     <!-- Textarea -->
                     <div class="form-group">
                         <label class=" control-label" for="product_description">PRODUCT DESCRIPTION</label>
@@ -70,7 +79,7 @@
                             <input id="filebutton" name="image" class="input-file" type="file"
                                 value="{{$product->image}}">
                         </div>
-                        <img src="/productImg/{{$product->image}}" class="proimg" id="img"/>
+                        <img src="/productImg/{{$product->image}}" class="proimg" id="img" />
                         <span class="text-danger" id="imageErr"></span>
                     </div>
 
@@ -118,6 +127,10 @@
                 $('#imageErr').text(message)
                 $('#imageErr').show()
             }
+            if (name == 'price') {
+                $('#priceErr').text(message)
+                $('#priceErr').show()
+            }
         }
 
         function showMessage(sty, message) {
@@ -133,6 +146,8 @@
             $('#quantityErr').hide()
             $('#descriptionErr').hide()
             $('#imageErr').hide()
+            $('#priceErr').hide()
+
             let noErrors = true;
             let product_namePattern = /^[A-Za-z\s]{2,}$/
             let product_name = $('#product_name').val().trim();
@@ -165,10 +180,36 @@
             } else {
                 if (!quantityPatten.test(quantity)) {
                     showError('quantity', "Invalid number")
-                    // console.log("Valid number");
                     noErrors = false
+                    // console.log("Valid number");
+                }
+                else{
+                    if(quantity<=0){
+                        showError('quantity', "quantity must greater than 0")
+                        noErrors = false
+                    }
                 }
             }
+
+            let price =$('#price').val().trim();
+            let pricePatten = /^\d+$/
+
+            if (price == "") {
+                // console.log('quantity')
+                showError('price', 'The price field is required.')
+                noErrors = false
+            } else {
+                if (!pricePatten.test(price)) {
+                    showError('price', "Invalid number")
+                    noErrors = false
+                }else{
+                    if(price<=10){
+                        showError('price', "Price must greater than 10")
+                        noErrors = false
+                    }
+                }
+            }
+
 
             let descriptionPatten = /^.{5,}$/
             let description = $('#product_description').val().trim();
@@ -215,7 +256,7 @@
 
             if (product_name != '{{$product->product_name}}' ||
                 product_categorie != '{{$product->product_categorie}}' ||
-                quantity != '{{$product->quantity}}' || description != '{{$product->description}}') {
+                quantity != '{{$product->quantity}}' || description != '{{$product->description}}' || price != '{{$product->price}}') {
                 update = true
             }
             else {
@@ -261,7 +302,7 @@
                         }
                         else {
                             if (res.status == 200 && res.message) {
-                                // window.location = '{{route('home')}}'
+                                // window.location = '{{route('adminhome')}}'
                                 showMessage('text-success', res.message)
                                 // $('#product_name').val("")
 

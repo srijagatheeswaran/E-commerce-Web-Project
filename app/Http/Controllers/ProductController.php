@@ -5,14 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\products;
 use Validator;
-class ProductControler extends Controller
+class ProductController extends Controller
 {
     function productCreate(Request $request)
     {
         if ($request->session()->has('loggedInUser')) {
-            return view('/productCreate');
+            return view('admin.productCreate');
         }
-        return redirect('/login');
+        return redirect('/adminlogin');
     }
     function createProduct(Request $request)
     {
@@ -21,9 +21,10 @@ class ProductControler extends Controller
             $validator = Validator::make($request->all(), [
                 'product_name' => 'required',
                 'product_categorie' => 'required',
-                'quantity' => 'required',
+                'quantity' => 'required|numeric',
                 'description' => 'required',
                 'image' => 'required|mimes:jpg,png,jpeg|max:2048',
+                'price' => 'required|numeric',
             ]);
             if ($validator->fails()) {
                 return response()->json([
@@ -42,6 +43,8 @@ class ProductControler extends Controller
                         'quantity' => $request->input('quantity'),
                         'description' => $request->input('description'),
                         'image' => $imageName,
+                        'price' => $request->input('price')
+
                     ]);
                     return response()->json(['status' => 200, 'message' => 'Product Created successfully']);
                 }
@@ -49,15 +52,15 @@ class ProductControler extends Controller
 
             }
         }
-        redirect('/login');
+        redirect('/adminlogin');
     }
     function productEdit(Request $request, int $id)
     {
         if ($request->session()->has('loggedInUser')) {
             $product = Products::findOrFail($id);
-            return view('productEdit', compact('product'));
+            return view('admin.productEdit', compact('product'));
         }
-        return redirect('/login');
+        return redirect('/adminlogin');
 
     }
     function productUpdate(Request $request, int $id)
@@ -66,9 +69,10 @@ class ProductControler extends Controller
             $validator = Validator::make($request->all(), [
                 'product_name' => 'required',
                 'product_categorie' => 'required',
-                'quantity' => 'required',
+                'quantity' => 'required|numeric',
                 'description' => 'required',
                 'image' => 'mimes:jpg,png,jpeg|max:2048',
+                'price' => 'required|numeric',
             ]);
             if ($validator->fails()) {
                 return response()->json([
@@ -88,6 +92,7 @@ class ProductControler extends Controller
                             'quantity' => $request->input('quantity'),
                             'description' => $request->input('description'),
                             'image' => $imageName,
+                            'price'=> $request->input('price'),
                         ]);
                         return response()->json(['status' => 200, 'message' => 'Update SuccessFully']);
                     }
@@ -98,6 +103,8 @@ class ProductControler extends Controller
                             'product_categorie' => $request->input('product_categorie'),
                             'quantity' => $request->input('quantity'),
                             'description' => $request->input('description'),
+                            'price'=> $request->input('price'),
+
                         ]
                     );
                     return response()->json([
@@ -106,7 +113,7 @@ class ProductControler extends Controller
                     ]);
                 }
             }
-            return redirect('/login');
+            return redirect('/adminlogin');
 
 
 
@@ -121,15 +128,15 @@ class ProductControler extends Controller
             $prodect->delete();
             return redirect()->back()->with('success', 'Product delete Successfully');
         }
-        return redirect('/login');
+        return redirect('/adminlogin');
 
     }
     function showOrders(Request $request)
     {
         if ($request->session()->has('loggedInUser')) {
-            return view('orders');
+            return view('admin.adminOrders');
         }
-        return redirect('/login');
+        return redirect('/adminlogin');
 
 
 

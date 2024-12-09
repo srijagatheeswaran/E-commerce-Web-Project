@@ -1,16 +1,18 @@
-.loginBox{
+.loginBox {
     height: 100vh;
     width: 100%;
     display: flex;
     flex-direction: column;
-    justify-content:center;
-    align-items:center;
+    justify-content: center;
+    align-items: center;
 }
-.loginBox form{
+
+.loginBox form {
     height: 400px;
     width: 50%;
 }
-.Dashboard{
+
+.Dashboard {
     height: 100vh;
     width: 100%;
     display: flex;
@@ -18,7 +20,8 @@
     gap: 10px;
     align-items: center;
 }
-.Dashboard header{
+
+.Dashboard header {
     height: 50px;
     width: 100%;
     display: flex;
@@ -27,16 +30,19 @@
     padding: 0 10px;
     margin: 10px 0;
 }
-.Dashboard header .h1{
+
+.Dashboard header .h1 {
     font-size: 18px;
 }
-.Dashboard .createBox{
+
+.Dashboard .createBox {
     margin-top: 10px;
     display: flex;
-    justify-content:space-between ;
+    justify-content: space-between;
     width: 100%;
 }
-.productCreate{
+
+.productCreate {
     width: 100%;
     height: 100vh;
     display: flex;
@@ -44,47 +50,203 @@
     justify-content: center;
     align-items: center;
 }
-.productCreate form{
+
+.productCreate form {
     height: max-content;
     width: 60%;
     background-color: whitesmoke;
     padding: 10px;
     border-radius: 5px;
 }
-.form-group{
+
+.form-group {
     margin-bottom: 10px;
 }
-#loginAlert{
-    text-align: center  ;
-}
-.productTableBox{
+
+.productTableBox {
     width: 80%;
     overflow-x: auto;
-    
+
 }
+
 /* .productTableBox table{
     overflow-y: auto;
 } */
-.productImg img{
+.productImg img {
     height: 100px;
     width: 100px;
 }
-.action{
+
+.action {
     display: flex;
     gap: 10px;
 }
-form legend{
+
+form legend {
     text-align: center;
 }
-.proimg{
+
+.proimg {
     height: 50px;
     width: 50px;
     margin: 10px 0;
 }
-.backbtn{
+
+.backbtn {
     position: absolute;
     top: 10px;
     left: 10px;
+}
+
+.link {
+    text-align: center;
+
+}
+
+.dashboard {
+    background-color: whitesmoke;
+    height: 100vh;
+    width: 100%;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    width: 100%;
+}
+
+.heading {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    flex-direction: column;
+}
+
+.heading form {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    justify-content: center
+}
+
+.heading form div {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#loginAlert {
+    text-align: center;
+}
+
+.slider {
+    background-color: white;
+    width: 100%;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+}
+
+.slider a {
+    width: 100px;
+    height: 100%;
+    display: flex;
+    font-size: 18px;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    text-decoration: none;
+    color: black;
+
+
+}
+
+.slider a:hover i,
+.slider a:hover p {
+    color: rgb(81, 255, 0);
+    text-shadow: 1px 1px 1px rgba(23, 6, 255, 0.747);
+
+
+}
+
+.slider a i {
+    padding-right: 10px;
+    transition: all 0.1s linear;
+}
+
+.slider a p {
+    margin: 0;
+    transition: all 0.1s linear;
+
+}
+
+.cardImg {
+    height: 10rem;
+    width: 10rem !important;
+}
+.card-body{
+    text-align: start;
+    padding: 10px !important;
+    width: 100%;
+    text-transform: capitalize;
+    padding-bottom: 0px !important;
+}
+
+.products {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 11rem);
+    gap: 15px;
+    justify-content: center;
+    padding-bottom: 55px;
+    height: max-content;
+    background: whitesmoke;
+}
+.productAction{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}    
+.productAction a i{
+    font-size: 19px;
+}
+
+.card {
+    width: 11rem !important;
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    /* padding: 5px 10px; */
+}
+
+.slider a .active {
+    background-color: green;
+    color: white;
+}
+.fa-heart{
+    color: red;
+}
+
+@media (max-width:425px) {
+    .slider a p {
+        display: none;
+
+    }
+
+    .slider a i {
+        font-size: 20px;
+        padding: 0;
+    }
+
+    .heading form {
+        flex-direction: column;
+    }
+
 }
 
 
@@ -93,22 +255,23 @@ form legend{
 
 ::-webkit-scrollbar {
     width: 10px;
-  }
-  
-  /* Track */
-  ::-webkit-scrollbar-track {
-    background: #f1f1f1; 
-  }
-   
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
-    background: #888; 
-  }
-  
-  /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
-    background: #555; 
-  }
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
 /* .error{
     border: 1px solid red;
 } */
